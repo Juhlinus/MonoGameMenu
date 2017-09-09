@@ -37,14 +37,15 @@ namespace Game1
 
 			selection_ = 0;
 
-			items_ = new[] {"New Game", "High Scores", "Quit"};
+			items_ = new[] {"New Game", "High Scores", "Options", "Quit"};
 
-			selectionBoxes_ = new[]
+			selectionBoxes_ = new Texture2D[ items_.Length ];
+
+			for (int i = 0; i < items_.Length; i++)
 			{
-				new Texture2D(graphics_.GraphicsDevice, (int)menuItem_.MeasureString(items_[0]).X + 10, (int)menuItem_.MeasureString(items_[0]).Y + 5),
-				new Texture2D(graphics_.GraphicsDevice, (int)menuItem_.MeasureString(items_[1]).X + 10, (int)menuItem_.MeasureString(items_[1]).Y + 5),
-				new Texture2D(graphics_.GraphicsDevice, (int)menuItem_.MeasureString(items_[2]).X + 10, (int)menuItem_.MeasureString(items_[2]).Y + 5)
-			};
+				selectionBoxes_[i] = new Texture2D(graphics_.GraphicsDevice, (int) menuItem_.MeasureString(items_[i]).X + 10,
+					(int) menuItem_.MeasureString(items_[i]).Y + 5);
+			}
 
 			foreach (var select in selectionBoxes_)
 			{
