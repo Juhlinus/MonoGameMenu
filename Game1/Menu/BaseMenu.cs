@@ -22,11 +22,13 @@ namespace Game1.Menu
 		bool _gameStart;
 		*/
 		protected int Selection;
+		string MenuTitle;
 		private readonly string[] _items;
 
-		protected BaseMenu(Game game, string[] items) : base(game)
+		protected BaseMenu(Game game, string[] items, string menuTitle) : base(game)
 		{
 			_items = items;
+			MenuTitle = menuTitle;
 		}
 
 		public override void Initialize()
@@ -99,7 +101,7 @@ namespace Game1.Menu
 
 			_spriteBatch.Begin();
 
-			_spriteBatch.DrawString(_title, "GAME NAME", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 110, 75),
+			_spriteBatch.DrawString(_title, MenuTitle, new Vector2(_graphics.PreferredBackBufferWidth / 2 - 110, 75),
 				Color.White);
 
 			Vector2 itemPosition;

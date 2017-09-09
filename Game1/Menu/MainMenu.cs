@@ -6,10 +6,11 @@ namespace Game1.Menu
 	class MainMenu : BaseMenu
 	{
 		private static readonly string[] Items = { "New Game", "High Scores", "Options", "Credits", "Quit" };
+		private static string MenuTitle = "Main Menu";
 
 		readonly Game _game;
 
-		public MainMenu(Game game) : base(game, Items)
+		public MainMenu(Game game) : base(game, Items, MenuTitle)
 		{
 			_game = game;
 		}
