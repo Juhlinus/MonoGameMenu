@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Game1
+namespace Game1.Menu
 {
-	public class Menu : DrawableGameComponent
+	public class MainMenu : DrawableGameComponent
 	{
 		GraphicsDeviceManager _graphics;
 
@@ -23,7 +23,7 @@ namespace Game1
 		int _selection;
 		string[] _items;
 
-		public Menu(Game game /*, GameLoop gameLoop */) : base(game)
+		public MainMenu(Game game /*, GameLoop gameLoop */) : base(game)
 		{
 			// gameStart_ = gameStart;
 		}

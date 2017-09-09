@@ -10,17 +10,19 @@ namespace Game1
     /// </summary>
     public class Game1 : Game
     {
-		GraphicsDeviceManager graphics_;
-	    SpriteBatch spriteBatch_;
-	    AudioEngine audioEngine_;
+	    readonly GraphicsDeviceManager _graphics;
+	    SpriteBatch _spriteBatch;
+	    /*
+		AudioEngine audioEngine_;
 	    WaveBank waveBank_;
 	    SoundBank soundBank_;
+		*/
 
 		public Game1()
         {
-            graphics_ = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
 
-	        Components.Add(new Menu(this));
+	        Components.Add(new Menu.MainMenu(this));
 
             Content.RootDirectory = "Content";
         }
@@ -41,9 +43,9 @@ namespace Game1
 	        //Services.AddService(typeof(AudioEngine), audioEngine_);
 	        //Services.AddService(typeof(SoundBank), soundBank_);
 
-	        spriteBatch_ = new SpriteBatch(GraphicsDevice);
-	        Services.AddService(typeof(SpriteBatch), spriteBatch_);
-	        Services.AddService(typeof(GraphicsDeviceManager), graphics_);
+	        _spriteBatch = new SpriteBatch(GraphicsDevice);
+	        Services.AddService(typeof(SpriteBatch), _spriteBatch);
+	        Services.AddService(typeof(GraphicsDeviceManager), _graphics);
 
 			base.Initialize();
         }
@@ -55,7 +57,7 @@ namespace Game1
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch_ = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -93,10 +95,10 @@ namespace Game1
             GraphicsDevice.Clear(Color.MonoGameOrange);
 
             // TODO: Add your drawing code here
-	        spriteBatch_.Begin();
+	        _spriteBatch.Begin();
 	        //spriteBatch_.Draw(Ship, Vector2.Zero, Color.Pink);
 	        //spriteBatch_.DrawString(font, "Your momma so fat..", new Vector2(200, 100), Color.White);
-	        spriteBatch_.End();
+	        _spriteBatch.End();
 
             base.Draw(gameTime);
         }
