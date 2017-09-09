@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,46 +9,46 @@ namespace Game1
 {
 	public class Menu : DrawableGameComponent
 	{
-		GraphicsDeviceManager graphics_;
+		GraphicsDeviceManager _graphics;
 
-		SpriteBatch spriteBatch_;
-		SpriteFont menuItem_;
-		SpriteFont title_;
+		SpriteBatch _spriteBatch;
+		SpriteFont _menuItem;
+		SpriteFont _title;
 
-		Texture2D[] selectionBoxes_;
+		Texture2D[] _selectionBoxes;
 
-		KeyboardState oldState_;
+		KeyboardState _oldState;
 
 		bool gameStart_;
-		int selection_;
-		string[] items_;
+		int _selection;
+		string[] _items;
 
 		public Menu(Game game /*, GameLoop gameLoop */) : base(game)
 		{
-			//gameStart_ = 
+			// gameStart_ = gameStart;
 		}
 
 		public override void Initialize()
 		{
-			spriteBatch_ = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
-			graphics_ = (GraphicsDeviceManager)Game.Services.GetService(typeof(GraphicsDeviceManager));
+			_spriteBatch = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
+			_graphics = (GraphicsDeviceManager)Game.Services.GetService(typeof(GraphicsDeviceManager));
 
-			menuItem_ = Game.Content.Load<SpriteFont>("MenuItem");
-			title_ = Game.Content.Load<SpriteFont>("Title");
+			_menuItem = Game.Content.Load<SpriteFont>("MenuItem");
+			_title = Game.Content.Load<SpriteFont>("Title");
 
-			selection_ = 0;
+			_selection = 0;
 
-			items_ = new[] {"New Game", "High Scores", "Options", "Credits", "Quit"};
+			_items = new[] {"New Game", "High Scores", "Options", "Credits", "Quit"};
 
-			selectionBoxes_ = new Texture2D[ items_.Length ];
+			_selectionBoxes = new Texture2D[ _items.Length ];
 
-			for (int i = 0; i < items_.Length; i++)
+			for (int i = 0; i < _items.Length; i++)
 			{
-				selectionBoxes_[i] = new Texture2D(graphics_.GraphicsDevice, (int) menuItem_.MeasureString(items_[i]).X + 10,
-					(int) menuItem_.MeasureString(items_[i]).Y + 5);
+				_selectionBoxes[i] = new Texture2D(_graphics.GraphicsDevice, (int) _menuItem.MeasureString(_items[i]).X + 10,
+					(int) _menuItem.MeasureString(_items[i]).Y + 5);
 			}
 
-			foreach (var select in selectionBoxes_)
+			foreach (var select in _selectionBoxes)
 			{
 				Color[] data = new Color[ select.Width * select.Height ];
 
@@ -58,7 +59,7 @@ namespace Game1
 				}
 			}
 
-			oldState_ = Keyboard.GetState();
+			_oldState = Keyboard.GetState();
 
 			base.Initialize();
 		}
@@ -70,54 +71,76 @@ namespace Game1
 			KeyboardState newState = Keyboard.GetState();
 
 			var newPressedKeys = from k in newState.GetPressedKeys()
-				where !(oldState_.GetPressedKeys().Contains(k))
+				where !(_oldState.GetPressedKeys().Contains(k))
 				select k;
 
 			IEnumerable<Keys> pressedKeys = newPressedKeys as Keys[] ?? newPressedKeys.ToArray();
 
 			if (pressedKeys.Contains(Keys.Down))
 			{
-				selection_++;
-				selection_ %= items_.Length;
+				_selection++;
+				_selection %= _items.Length;
 			}
 			else if (pressedKeys.Contains(Keys.Up))
 			{
-				selection_--;
-				selection_ = selection_ < 0 ? items_.Length - 1 : selection_;
+				_selection--;
+				_selection = _selection < 0 ? _items.Length - 1 : _selection;
 			}
 			else if (pressedKeys.Contains(Keys.Enter))
 			{
-				//menuAction();
+				MenuAction();
 			}
 
-			oldState_ = newState;
+			_oldState = newState;
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
 			base.Draw(gameTime);
 
-			spriteBatch_.Begin();
+			_spriteBatch.Begin();
 
-			spriteBatch_.DrawString(title_, "Fuck you guys", new Vector2(graphics_.PreferredBackBufferWidth / 2 - 110, 75),
+			_spriteBatch.DrawString(_title, "Fuck you guys", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 110, 75),
 				Color.White);
 
 			Vector2 itemPosition;
-			itemPosition.X = graphics_.PreferredBackBufferWidth / 2 - 100;
+			itemPosition.X = _graphics.PreferredBackBufferWidth / 2 - 100;
 
-			for (int i = 0; i < items_.Length; i++)
+			for (int i = 0; i < _items.Length; i++)
 			{
-				itemPosition.Y = graphics_.PreferredBackBufferHeight / 2 - 90 + 60 * i;
+				itemPosition.Y = _graphics.PreferredBackBufferHeight / 2 - 90 + 60 * i;
 
-				if (i == selection_)
+				if (i == _selection)
 				{
-					spriteBatch_.Draw(selectionBoxes_[i], new Vector2(itemPosition.X - 4, itemPosition.Y - 2), Color.White);
+					_spriteBatch.Draw(_selectionBoxes[i], new Vector2(itemPosition.X - 4, itemPosition.Y - 2), Color.White);
 				}
 
-				spriteBatch_.DrawString(menuItem_, items_[i], itemPosition, Color.Yellow);
+				_spriteBatch.DrawString(_menuItem, _items[i], itemPosition, Color.Yellow);
 			}
 
-			spriteBatch_.End();
+			_spriteBatch.End();
+		}
+
+		void MenuAction()
+		{
+			Game.Components.Remove(this);
+
+			switch (_items[_selection])
+			{
+				case ("New Game"):
+					break;
+				case ("High Scores"):
+					break;
+				case ("Options"):
+					break;
+				case ("Credits"):
+					break;
+				case ("Quit"):
+					Game.Exit();
+					break;
+				default:
+					throw new ArgumentException("\"" + _items[_selection] + "\" is not a valid case");
+			}
 		}
 	}
 }
