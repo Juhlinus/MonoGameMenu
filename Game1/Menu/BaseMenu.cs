@@ -70,7 +70,7 @@ namespace Game1.Menu
 			KeyboardState newState = Keyboard.GetState();
 
 			var newPressedKeys = from k in newState.GetPressedKeys()
-				where !(_oldState.GetPressedKeys().Contains(k))
+				where !_oldState.GetPressedKeys().Contains(k)
 				select k;
 
 			IEnumerable<Keys> pressedKeys = newPressedKeys as Keys[] ?? newPressedKeys.ToArray();

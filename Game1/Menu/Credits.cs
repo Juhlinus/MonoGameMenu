@@ -5,7 +5,7 @@ namespace Game1.Menu
 {
 	class Credits : BaseMenu
 	{
-		static readonly string[] Items = { "Who did it", "Back" };
+		private static readonly string[] Items = { "Who did it", "Back" };
 
 		readonly Game _game;
 
@@ -20,9 +20,9 @@ namespace Game1.Menu
 
 			switch (Items[Selection])
 			{
-				case ("Who did it"):
+				case "Who did it":
 					break;
-				case ("Back"):
+				case "Back":
 					Game.Components.Add(new MainMenu(_game));
 					break;
 				default:

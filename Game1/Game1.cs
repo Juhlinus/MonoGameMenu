@@ -12,11 +12,6 @@ namespace Game1
     {
 	    readonly GraphicsDeviceManager _graphics;
 	    SpriteBatch _spriteBatch;
-	    /*
-		AudioEngine audioEngine_;
-	    WaveBank waveBank_;
-	    SoundBank soundBank_;
-		*/
 
 		public Game1()
         {
@@ -36,12 +31,6 @@ namespace Game1
         protected override void Initialize()
         {
 			// TODO: Add your initialization logic here
-
-			//audioEngine_ = new AudioEngine("Content/Audio/YEPAudio.xgs");
-	        //waveBank_ = new WaveBank(audioEngine_, "Content/Audio/Wave Bank.xwb");
-	        //soundBank_ = new SoundBank(audioEngine_, "Content/Audio/Sound Bank.xsb");
-	        //Services.AddService(typeof(AudioEngine), audioEngine_);
-	        //Services.AddService(typeof(SoundBank), soundBank_);
 
 	        _spriteBatch = new SpriteBatch(GraphicsDevice);
 	        Services.AddService(typeof(SpriteBatch), _spriteBatch);
@@ -95,10 +84,6 @@ namespace Game1
             GraphicsDevice.Clear(Color.MonoGameOrange);
 
             // TODO: Add your drawing code here
-	        _spriteBatch.Begin();
-	        //spriteBatch_.Draw(Ship, Vector2.Zero, Color.Pink);
-	        //spriteBatch_.DrawString(font, "Your momma so fat..", new Vector2(200, 100), Color.White);
-	        _spriteBatch.End();
 
             base.Draw(gameTime);
         }

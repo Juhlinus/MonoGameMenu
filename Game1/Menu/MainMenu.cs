@@ -5,7 +5,7 @@ namespace Game1.Menu
 {
 	class MainMenu : BaseMenu
 	{
-		static readonly string[] Items = { "New Game", "High Scores", "Options", "Credits", "Quit" };
+		private static readonly string[] Items = { "New Game", "High Scores", "Options", "Credits", "Quit" };
 
 		readonly Game _game;
 
@@ -20,16 +20,16 @@ namespace Game1.Menu
 
 			switch (Items[Selection])
 			{
-				case ("New Game"):
+				case "New Game":
 					break;
-				case ("High Scores"):
+				case "High Scores":
 					break;
-				case ("Options"):
+				case "Options":
 					break;
-				case ("Credits"):
+				case "Credits":
 					Game.Components.Add(new Credits(_game));
 					break;
-				case ("Quit"):
+				case "Quit":
 					Game.Exit();
 					break;
 				default:
