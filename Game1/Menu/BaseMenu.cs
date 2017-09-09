@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,9 +18,11 @@ namespace Game1.Menu
 
 		KeyboardState _oldState;
 
-		bool gameStart_;
-		protected int _selection;
-		readonly string[] _items;
+		/*
+		bool _gameStart;
+		*/
+		protected int Selection;
+		private readonly string[] _items;
 
 		protected BaseMenu(Game game, string[] items) : base(game)
 		{
@@ -36,7 +37,7 @@ namespace Game1.Menu
 			_menuItem = Game.Content.Load<SpriteFont>("MenuItem");
 			_title = Game.Content.Load<SpriteFont>("Title");
 
-			_selection = 0;
+			Selection = 0;
 
 			_selectionBoxes = new Texture2D[ _items.Length ];
 
@@ -76,13 +77,13 @@ namespace Game1.Menu
 
 			if (pressedKeys.Contains(Keys.Down))
 			{
-				_selection++;
-				_selection %= _items.Length;
+				Selection++;
+				Selection %= _items.Length;
 			}
 			else if (pressedKeys.Contains(Keys.Up))
 			{
-				_selection--;
-				_selection = _selection < 0 ? _items.Length - 1 : _selection;
+				Selection--;
+				Selection = Selection < 0 ? _items.Length - 1 : Selection;
 			}
 			else if (pressedKeys.Contains(Keys.Enter))
 			{
@@ -98,7 +99,7 @@ namespace Game1.Menu
 
 			_spriteBatch.Begin();
 
-			_spriteBatch.DrawString(_title, "Fuck you guys", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 110, 75),
+			_spriteBatch.DrawString(_title, "GAME NAME", new Vector2(_graphics.PreferredBackBufferWidth / 2 - 110, 75),
 				Color.White);
 
 			Vector2 itemPosition;
@@ -108,7 +109,7 @@ namespace Game1.Menu
 			{
 				itemPosition.Y = _graphics.PreferredBackBufferHeight / 2 - 90 + 60 * i;
 
-				if (i == _selection)
+				if (i == Selection)
 				{
 					_spriteBatch.Draw(_selectionBoxes[i], new Vector2(itemPosition.X - 4, itemPosition.Y - 2), Color.White);
 				}

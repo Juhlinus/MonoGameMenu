@@ -7,7 +7,7 @@ namespace Game1.Menu
 	{
 		static readonly string[] Items = { "New Game", "High Scores", "Options", "Credits", "Quit" };
 
-		Game _game;
+		readonly Game _game;
 
 		public MainMenu(Game game) : base(game, Items)
 		{
@@ -18,7 +18,7 @@ namespace Game1.Menu
 		{
 			Game.Components.Remove(this);
 
-			switch (Items[_selection])
+			switch (Items[Selection])
 			{
 				case ("New Game"):
 					break;
@@ -27,13 +27,13 @@ namespace Game1.Menu
 				case ("Options"):
 					break;
 				case ("Credits"):
-					Game.Components.Add(new Menu.Credits(_game));
+					Game.Components.Add(new Credits(_game));
 					break;
 				case ("Quit"):
 					Game.Exit();
 					break;
 				default:
-					throw new ArgumentException("\"" + Items[_selection] + "\" is not a valid case");
+					throw new ArgumentException("\"" + Items[Selection] + "\" is not a valid case");
 			}
 		}
 	}
