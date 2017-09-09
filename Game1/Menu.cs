@@ -37,7 +37,7 @@ namespace Game1
 
 			selection_ = 0;
 
-			items_ = new[] {"New Game", "High Scores", "Options", "Quit"};
+			items_ = new[] {"New Game", "High Scores", "Options", "Credits", "Quit"};
 
 			selectionBoxes_ = new Texture2D[ items_.Length ];
 
@@ -107,7 +107,7 @@ namespace Game1
 
 			for (int i = 0; i < items_.Length; i++)
 			{
-				itemPosition.Y = graphics_.PreferredBackBufferHeight / 2 - 60 + 60 * i;
+				itemPosition.Y = graphics_.PreferredBackBufferHeight / 2 - 90 + 60 * i;
 
 				if (i == selection_)
 				{
