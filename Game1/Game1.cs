@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,12 +10,18 @@ namespace Game1
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        
-        public Game1()
+		GraphicsDeviceManager graphics_;
+	    SpriteBatch spriteBatch_;
+	    AudioEngine audioEngine_;
+	    WaveBank waveBank_;
+	    SoundBank soundBank_;
+
+		public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics_ = new GraphicsDeviceManager(this);
+
+	        Components.Add(new Menu(this));
+
             Content.RootDirectory = "Content";
         }
 
@@ -26,9 +33,19 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+			// TODO: Add your initialization logic here
 
-            base.Initialize();
+			//audioEngine_ = new AudioEngine("Content/Audio/YEPAudio.xgs");
+	        //waveBank_ = new WaveBank(audioEngine_, "Content/Audio/Wave Bank.xwb");
+	        //soundBank_ = new SoundBank(audioEngine_, "Content/Audio/Sound Bank.xsb");
+	        //Services.AddService(typeof(AudioEngine), audioEngine_);
+	        //Services.AddService(typeof(SoundBank), soundBank_);
+
+	        spriteBatch_ = new SpriteBatch(GraphicsDevice);
+	        Services.AddService(typeof(SpriteBatch), spriteBatch_);
+	        Services.AddService(typeof(GraphicsDeviceManager), graphics_);
+
+			base.Initialize();
         }
 
         /// <summary>
@@ -38,7 +55,7 @@ namespace Game1
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch_ = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -73,9 +90,13 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.MonoGameOrange);
 
             // TODO: Add your drawing code here
+	        spriteBatch_.Begin();
+	        //spriteBatch_.Draw(Ship, Vector2.Zero, Color.Pink);
+	        //spriteBatch_.DrawString(font, "Your momma so fat..", new Vector2(200, 100), Color.White);
+	        spriteBatch_.End();
 
             base.Draw(gameTime);
         }
